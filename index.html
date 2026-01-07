@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美髮經營學-正式線上課程</title>
+    <style>
+        /* CSS 樣式：黑金色低調奢華風格設計 */
+        :root {
+            --bg-color: #0a0a0a;
+            --container-bg: #121212;
+            --gold-dim: #8a6d3b;
+            --gold-bright: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --text-gold: #c5a059;
+            --text-silver: #a0a0a0;
+        }
+
+        body {
+            font-family: '微軟正黑體', 'Microsoft JhengHei', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            margin: 0;
+            background-color: var(--bg-color);
+            color: #ffffff;
+        }
+
+        /* 呼吸發光動畫定義 */
+        @keyframes breath {
+            0% { border-color: var(--gold-dim); box-shadow: 0 0 5px rgba(138, 109, 59, 0.2); }
+            50% { border-color: var(--gold-bright); box-shadow: 0 0 20px var(--gold-glow); }
+            100% { border-color: var(--gold-dim); box-shadow: 0 0 5px rgba(138, 109, 59, 0.2); }
+        }
+
+        .container {
+            width: 900px;
+            max-width: 95%;
+            padding: 30px 20px; 
+            box-sizing: border-box;
+            background: var(--container-bg);
+            border: 2px solid var(--gold-dim); 
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* 外部總控連結樣式 */
+        .external-link-text {
+            position: absolute;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--gold-dim);
+            writing-mode: vertical-rl; 
+            text-orientation: upright;
+            cursor: pointer; 
+            transition: all 0.4s ease;
+            transform: none !important; 
+        }
+        .external-link-text:hover {
+            color: var(--gold-bright);
+            text-shadow: 0 0 10px var(--gold-bright);
+        }
+        
+        .text-management { top: 50%; left: -35px; transform: translateY(-50%) !important; }
+        .text-preface { top: 50%; left: -65px; transform: translateY(-50%) !important; }
+        .text-holding-label { top: 50%; right: -35px; transform: translateY(-50%) !important; }
+        .text-holding { top: 50%; right: -65px; transform: translateY(-50%) !important; } 
+
+        .top-bottom-mgt-text {
+            position: absolute; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            font-size: 20px; 
+            font-weight: bold;
+            color: var(--gold-dim); 
+            cursor: pointer;
+            transition: all 0.4s ease;
+            width: 150px; 
+            text-align: center;
+            z-index: 10; 
+            margin: 0 !important; 
+        }
+        .top-bottom-mgt-text:hover { color: var(--gold-bright); text-shadow: 0 0 10px var(--gold-bright); }
+        .text-top-mgt { top: 0; padding-top: 5px; } 
+        .text-cost-mgt { bottom: 0; padding-bottom: 5px; } 
+
+        /* 主要區塊佈局 */
+        .management-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr; 
+            gap: 15px;
+            padding: 30px 0; 
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        /* 呼吸感按鈕基礎樣式 */
+        .block {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--gold-dim);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer; 
+            animation: breath 4s infinite ease-in-out;
+        }
+
+        /* 滑鼠滑過色彩變化 (Individual Spectrum Colors) */
+        /* 左外部：翡翠光 */
+        .block-side[data-link-id="left-external"]:hover { border-color: #00ff88 !important; box-shadow: 0 0 25px rgba(0, 255, 136, 0.4); transform: scale(1.02); }
+        /* 上外部：金黃光 */
+        .block-top:hover { border-color: #ffea00 !important; box-shadow: 0 0 25px rgba(255, 234, 0, 0.4); transform: scale(1.02); }
+        /* 內部：琥珀光 */
+        .block-middle:hover { border-color: #ff9100 !important; box-shadow: 0 0 25px rgba(255, 145, 0, 0.4); transform: scale(1.02); }
+        /* 下外部：玫瑰紅 */
+        .block-bottom:hover { border-color: #ff0077 !important; box-shadow: 0 0 25px rgba(255, 0, 119, 0.4); transform: scale(1.02); }
+        /* 右外部：寶石藍 */
+        .block-side[data-link-id="right-external"]:hover { border-color: #00d9ff !important; box-shadow: 0 0 25px rgba(0, 217, 255, 0.4); transform: scale(1.02); }
+
+        .sub-items { list-style: none; padding: 0; text-align: left; margin-top: 10px; }
+        .sub-items li { margin-bottom: 5px; font-size: 15px; cursor: pointer; color: var(--text-silver); transition: color 0.3s; }
+        .sub-items li:hover { text-decoration: underline; color: #ffffff; }
+
+        .main-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--gold-bright);
+            border-bottom: 1px dashed #444;
+            padding-bottom: 5px;
+        }
+
+        .side-link-text {
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--gold-dim);
+        }
+        .side-link-text:hover {
+            text-decoration: underline;
+            color: #ffffff;
+        }
+
+        .side-block { height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .middle-content { display: flex; flex-direction: column; justify-content: space-around; gap: 15px; grid-column: 2 / 3; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="external-link-text text-preface" data-link-id="total-preface">前言</div>
+        <div class="external-link-text text-management" data-link-id="total-management">管理層</div>
+        <div class="external-link-text text-holding" data-link-id="total-holding-label">控股層</div>
+        
+        <div class="top-bottom-mgt-text text-top-mgt" data-link-id="top-price-mgt">價格管理</div>
+        <div class="top-bottom-mgt-text text-cost-mgt" data-link-id="bottom-cost-mgt">成本管理</div>
+        
+        <div class="management-grid">
+
+            <div class="side-block block block-side" data-link-id="left-external">
+                <div class="main-title">左外部管理</div>
+                <div class="side-link-text" data-link-id="supplier-mgt">供應商管理</div> 
+            </div>
+
+            <div class="middle-content">
+                
+                <div class="block block-top" data-link-id="top-external-overview">
+                    <div class="main-title">上外部管理</div>
+                    <ul class="sub-items">
+                        <li data-link-id="customer-mgt">1. 顧客管理</li>
+                        <li data-link-id="sentiment-mgt">2. 客情管理</li>
+                        <li data-link-id="booking-mgt">3. 預約管理</li>
+                    </ul>
+                </div>
+
+                <div class="block block-middle" data-link-id="internal-operations-overview">
+                    <div class="main-title">內部管理</div>
+                    <ul class="sub-items">
+                        <li data-link-id="financial-mgt">1. 財務管理</li>
+                        <li data-link-id="talent-mgt">2. 人才管理</li>
+                        <li data-link-id="inventory-mgt">3. 庫存管理</li>
+                    </ul>
+                </div>
+
+                <div class="block block-bottom" data-link-id="bottom-external-overview">
+                    <div class="main-title">下外部管理</div>
+                    <ul class="sub-items">
+                        <li data-link-id="marketing-mgt">1. 行銷管理</li>
+                        <li data-link-id="activity-mgt">2. 活動管理</li>
+                        <li data-link-id="community-mgt">3. 社區管理</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="side-block block block-side" data-link-id="right-external">
+                <div class="main-title">右外部管理</div>
+                <div class="side-link-text" data-link-id="brand-mgt">品牌管理</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // 完全保留原始連結設定
+        const linkUrls = {
+            'top-price-mgt': 'https://sites.google.com/view/webcourse001/%E5%83%B9%E6%A0%BC%E7%AE%A1%E7%90%86',
+            'bottom-cost-mgt': 'https://drive.google.com/file/d/14qUKcjBlMhrGQpNFsb5CUxfUWHeBagkP/view?usp=sharing',
+            'total-preface': 'https://sites.google.com/view/webcourse001/%E5%89%8D%E8%A8%80/',
+            'total-management': 'https://drive.google.com/file/d/1OFOMi1jE9KRMp2eHoL1T4eeGUm3peq9g/view?usp=sharing',
+            'total-holding-label': 'https://drive.google.com/file/d/19jz8RCEfCmmBI_ki8mlXP0BeEa7NIM14/view?usp=sharing',
+            'top-external-overview': 'https://drive.google.com/file/d/1cFAh4to7Jyau-JrV75RzHXexsyTGuePA/view?usp=sharing',
+            'internal-operations-overview': 'https://drive.google.com/file/d/1WqYvrwuDqktlYV94Blb3ETpxL5rJ4cG5/view?usp=sharing',
+            'bottom-external-overview': 'https://drive.google.com/file/d/1T6i6smjMgfm40HrLm3zzoC5FrTuOCTbG/view?usp=sharing',
+            'left-external': 'https://drive.google.com/file/d/1DaYJLu4EH68bJcOUMOY46Tem85JxRByF/view?usp=drive_link',
+            'right-external': 'https://drive.google.com/file/d/1MU1Z2cH0L5sNmV-TqaWWp9zUvRiDoxyV/view?usp=drive_link',
+            'customer-mgt': 'https://sites.google.com/view/webcourse001/%E9%A1%A7%E5%AE%A2%E7%AE%A1%E7%90%86',
+            'sentiment-mgt': 'https://sites.google.com/view/webcourse001/%E5%AE%A2%E6%83%85%E7%AE%A1%E7%90%86',
+            'booking-mgt': 'https://sites.google.com/view/webcourse001/%E9%A0%90%E7%B4%84%E7%AE%A1%E7%90%86',
+            'financial-mgt': 'https://sites.google.com/view/webcourse001/%E8%B2%A1%E5%8B%99%E7%AE%A1%E7%90%86',
+            'talent-mgt': 'https://sites.google.com/view/webcourse001/%E4%BA%BA%E6%89%8D%E7%AE%A1%E7%90%86',
+            'inventory-mgt': 'https://sites.google.com/view/webcourse001/%E5%BA%AB%E5%AD%98%E7%AE%A1%E7%90%86',
+            'marketing-mgt': 'https://sites.google.com/view/webcourse001/%E8%A1%8C%E9%8A%B7%E7%AE%A1%E7%90%86',
+            'activity-mgt': 'https://sites.google.com/view/webcourse001/%E6%B4%BB%E5%8B%95%E7%AE%A1%E7%90%86',
+            'community-mgt': 'https://sites.google.com/view/webcourse001/%E7%A4%BE%E5%8D%80%E7%AE%A1%E7%90%86',
+            'supplier-mgt': 'https://sites.google.com/view/webcourse001/%E4%BE%9B%E6%87%89%E5%95%86%E7%AE%A1%E7%90%86',
+            'brand-mgt': 'https://sites.google.com/view/webcourse001/%E5%93%81%E7%89%8C%E7%AE%A1%E7%90%86',
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const clickableElements = document.querySelectorAll('[data-link-id]');
+            clickableElements.forEach(element => {
+                const linkId = element.getAttribute('data-link-id');
+                const url = linkUrls[linkId];
+
+                if (url && url !== '#') {
+                    element.addEventListener('click', (event) => {
+                        const isSubItem = element.tagName === 'LI';
+                        if (element.classList.contains('block') && !isSubItem) {
+                            if (event.target.closest('li') || event.target.classList.contains('side-link-text')) {
+                                return; 
+                            }
+                        }
+                        window.open(url, '_blank');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
